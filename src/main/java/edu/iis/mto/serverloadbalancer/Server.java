@@ -11,7 +11,7 @@ public class Server {
     private List<Vm> VmsList = new ArrayList<>();
 
     public boolean contains(Vm theVm) {
-        return true;
+        return VmsList.contains(theVm);
     }
 
     public Server(int capacity) {
