@@ -11,7 +11,7 @@ public class VmBuilder implements Builder<Vm> {
 
     @Override
     public Vm build() {
-        return new Vm();
+        return new Vm(size);
     }
 
     public static VmBuilder vm() {

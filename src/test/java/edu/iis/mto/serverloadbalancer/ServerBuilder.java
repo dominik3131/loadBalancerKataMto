@@ -11,7 +11,7 @@ public class ServerBuilder implements Builder<Server> {
 
     @Override
     public Server build() {
-        return new Server();
+        return new Server(capacity);
     }
 
     public static ServerBuilder server() {
