@@ -1,17 +1,32 @@
 package edu.iis.mto.serverloadbalancer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ServerLoadBalancer {
 
     public void balance(Server[] servers, Vm[] vms) {
         for (Vm vm : vms) {
-            Server lessLoadedServer = extractLessLoadedServer(servers);
+            addToLessLoadedServer(servers, vm);
+        }
+    }
+
+    private void addToLessLoadedServer(Server[] servers, Vm vm) {
+        List<Server> capableServers = new ArrayList<>();
+        for (Server server : servers) {
+            if (server.canFit(vm)) {
+                capableServers.add(server);
+            }
+        }
+        Server lessLoadedServer = extractLessLoadedServer(capableServers);
+        if (lessLoadedServer != null) {
             lessLoadedServer.addVm(vm);
         }
     }
 
-    private Server extractLessLoadedServer(Server[] servers) {
+    private Server extractLessLoadedServer(List<Server> capableServers) {
         Server lessLoadedServer = null;
-        for (Server server : servers) {
+        for (Server server : capableServers) {
             if (lessLoadedServer == null || lessLoadedServer.currentLoadPercentage > server.currentLoadPercentage) {
                 lessLoadedServer = server;
             }
